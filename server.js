@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
-const cache = require('express-redis-cache')();
+const cache = require('express-redis-cache')({expire: 60});
 
 const { slow } = require('./routes');
 
@@ -12,10 +12,11 @@ app.engine('.hbs', handlebars({extname: '.hbs', defaultLayout: 'main'}));
 app.set('view engine', '.hbs');
 
 app.use(bodyParser.json());
+app.use(cache.route())
 // server.use(creamCache.init()); /* student implements this */
 app.use('/slow', slow);
 
-app.get('/', cache.route(), (req, res) => {
+app.get('/', (req, res) => {
   res.render('index');
 });
 
