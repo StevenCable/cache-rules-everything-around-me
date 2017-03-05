@@ -10,7 +10,8 @@ module.exports = function(req,res,next){
     if(err) throw err;
 
     if(html !== null){
-      return res.send(html);
+      
+      return res.send(html + `<p id="counter">Site Visits: ${res.getCounter}</p>`);
     }
 
     res.setCache = (url, html) =>{
@@ -22,3 +23,4 @@ module.exports = function(req,res,next){
   });
   
 };
+

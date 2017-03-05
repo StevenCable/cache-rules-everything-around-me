@@ -10,7 +10,7 @@ router.route('/')
     return sleep(5000)
       .then(_ => res.render('api/index', (err, html) => {
           res.setCache(`${req.originalUrl}`, html);
-          res.send(html);
+          res.send(html + `<p id="counter">SiteVisits: ${res.getCounter}</p>`);
       }));
   });
 
